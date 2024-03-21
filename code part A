@@ -1,8 +1,10 @@
+#1question
 num_sides_die_a = 6
 num_sides_die_b = 6
 total_combinations = num_sides_die_a * num_sides_die_b
 print("Total combinations:", total_combinations) 
 
+#2question
 distribution = [[0] * 6 for _ in range(6)]
 for i in range(6):
     for j in range(6):
@@ -10,6 +12,7 @@ for i in range(6):
 
 print("Distribution of combinations:")
 
+#3question
 for row in distribution:
     print(row)
 probabilities = {}
