@@ -1,6 +1,37 @@
+def undoom_dice(die_a, die_b):
+    # Calculate the total number of combinations for the original dice
+    total_combinations = len(die_a) * len(die_b)
+    
+    # Calculate the original probabilities of each sum
+    original_probabilities = {}
+    for i in range(2, 13):
+        count = sum(1 for x in die_a for y in die_b if x + y == i)
+        original_probabilities[i] = count / total_combinations
+    
+    # Determine the maximum number of spots allowed on Die A
+    max_spots_die_a = 4
+    
+    # Adjust Die A by redistributing the spots while maintaining probabilities
+    new_die_a = []
+    for face_value in die_a:
+        # If the face value is greater than 4, keep it as is
+        if face_value > 4:
+            new_die_a.append(face_value)
+        else:
+            # Calculate the probability of obtaining the current face value on Die A
+            current_probability = sum(1 for x in die_b if face_value + x <= 6) / total_combinations
+            # Calculate the new number of spots for the current face value on Die A
+            new_spots = round(current_probability * total_combinations)
+            new_die_a.extend([face_value] * new_spots)
+    
+    # Adjust Die B by adding more spots if necessary
+    new_die_b = die_b + [6] * (total_combinations - len(new_die_a))
+    
+    return new_die_a, new_die_b
 
-
-
-bjgcyhhvkhb
-jkjbkhbkhbkjb
-kjbhhjhj; 
+# Test case
+Die_A = [1, 2, 3, 4, 5, 6]
+Die_B = Die_A
+New_Die_A, New_Die_B = undoom_dice(Die_A, Die_B)
+print("New Die A:", New_Die_A)
+print("New Die B:", New_Die_B)
